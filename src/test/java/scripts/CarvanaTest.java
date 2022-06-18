@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utilities.Waiter;
 
+import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
 
@@ -58,12 +59,12 @@ public class CarvanaTest extends Base {
 
 
     @Test(priority = 3, description = " Validate the main navigation section items")
-    public void validateMainNavigation(){
+    public void validateMainNavigation() {
         driver.get("https://www.carvana.com/");
 
-        String[] expected= {"HOW IT WORKS", "ABOUT CARVANA", "SUPPORT & CONTACT"};
+        String[] expected = {"HOW IT WORKS", "ABOUT CARVANA", "SUPPORT & CONTACT"};
 
-        for (int i=0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             Assert.assertEquals(carvanaMainPage.mainNavigation.get(i).getText(), expected[i]);
         }
 
@@ -85,7 +86,7 @@ public class CarvanaTest extends Base {
 
 
     @Test(priority = 4, description = "Validate the sign in error message")
-    public void signInMessage(){
+    public void signInMessage() {
 
         driver.get("https://www.carvana.com/");
 
@@ -96,10 +97,10 @@ public class CarvanaTest extends Base {
 
 
         carvanaMainPage.userPassword.sendKeys("abcd1234");
-      //  Assert.assertEquals(carvanaMainPage.userPassword.getText(), "abcd1234");
+        //  Assert.assertEquals(carvanaMainPage.userPassword.getText(), "abcd1234");
 
         carvanaMainPage.signInButtonModal.click();
-       // Assert.assertEquals(carvanaMainPage.userEmail.getText(), "johndoe@gmail.com");
+        // Assert.assertEquals(carvanaMainPage.userEmail.getText(), "johndoe@gmail.com");
         //Assert.assertTrue(carvanaMainPage.userPassword.getCssValue("abcd1234"));
 
         Assert.assertEquals(carvanaMainPage.errorMessage.getText(), "Email address and/or password combination is incorrect\n" +
@@ -123,24 +124,24 @@ public class CarvanaTest extends Base {
  */
 
 
-    @Test(priority =5, description = "Validate the search filter options and search button")
-    public void validateSearchFilterButton(){
-       driver.get("https://www.carvana.com/");
+    @Test(priority = 5, description = "Validate the search filter options and search button")
+    public void validateSearchFilterButton() {
+        driver.get("https://www.carvana.com/");
 
-    carvanaCarsPage.searchCarButton.click();
-    Assert.assertEquals(driver.getCurrentUrl(), "https://www.carvana.com/cars");
+        carvanaCarsPage.searchCarButton.click();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.carvana.com/cars");
 
-    String[] expected = {"PAYMENT & PRICE",
-            "MAKE & MODEL",
-            "BODY TYPE",
-            "YEAR & MILEAGE",
-            "FEATURES",
-            "MORE FILTERS"};
-    for (int i=0; i<6; i++){
+        String[] expected = {"PAYMENT & PRICE",
+                "MAKE & MODEL",
+                "BODY TYPE",
+                "YEAR & MILEAGE",
+                "FEATURES",
+                "MORE FILTERS"};
+        for (int i = 0; i < 6; i++) {
 
-        Assert.assertEquals(carvanaCarsPage.filterOptions.get(i).getText(), expected[i]);
+            Assert.assertEquals(carvanaCarsPage.filterOptions.get(i).getText(), expected[i]);
 
-    }
+        }
 
     }
 
@@ -158,7 +159,7 @@ public class CarvanaTest extends Base {
      */
 
     @Test(priority = 6, description = "Validate the search result tiles")
-    public void searchResultTile () {
+    public void searchResultTile() {
         driver.get("https://www.carvana.com/");
 
         carvanaCarsPage.searchCarButton.click();
@@ -170,12 +171,30 @@ public class CarvanaTest extends Base {
         explicitWait.until(ExpectedConditions.urlContains("mercedes-benz"));
         Assert.assertTrue(driver.getCurrentUrl().contains("mercedes-benz"));
 
+        for (int i = 0; i < 14; i++) {
+         // Assert.assertTrue(carvanaCarsPage.tileImg.get(i).isDisplayed());
+           Assert.assertTrue(carvanaCarsPage.tileFavorite.get(i).isDisplayed());
+            Assert.assertTrue(carvanaCarsPage.tileFavorite.get(i).isEnabled());
+            Assert.assertTrue(carvanaCarsPage.tileBody.get(i).isDisplayed());
+            Assert.assertTrue(carvanaCarsPage.inventoryType.get(i).isDisplayed() && carvanaCarsPage.inventoryType.get(i).getText() != null);
+            Assert.assertTrue(carvanaCarsPage.yearMakeModel.get(i).isDisplayed() && carvanaCarsPage.yearMakeModel.get(i).getText() != null);
+            Assert.assertTrue(carvanaCarsPage.trimMileage.get(i).isDisplayed() && carvanaCarsPage.trimMileage.get(i).getText() != null);
+
+            String results = carvanaCarsPage.price.get(i).getText();
+            System.out.println(results);
+
+           Assert.assertTrue(Long.parseLong(results.substring(results.indexOf("$")+1).replace(",", "")) > 0);
+
+            assertTrue(carvanaCarsPage.monthlyPaymentInfo.get(i).isDisplayed() && carvanaCarsPage.monthlyPaymentInfo.get(i).getText() != null);
+            assertTrue(carvanaCarsPage.downPaymentInfo.get(i).isDisplayed() && carvanaCarsPage.downPaymentInfo.get(i).getText() != null);
+            assertTrue(carvanaCarsPage.deliveryChip.get(i).isDisplayed() && carvanaCarsPage.deliveryChip.get(i).getText() != null);
+
+        }
 
 
     }
-
-
 }
+
 
 
 

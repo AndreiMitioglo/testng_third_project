@@ -26,11 +26,38 @@ public class CarvanaCarsPage {
     @FindBy(css = "button[data-qa='go-button']")
     public WebElement goButton;
 
-    @FindBy(xpath = "//picture[@class='vehicle-image']")
+    @FindBy(css = "class=\"tk-frame top-frame\"")
     public List<WebElement> tileImg;
 
     @FindBy(css = "div[class=\"favorite-vehicle\"]")
     public List<WebElement> tileFavorite;
+
+    @FindBy(css = "div[class=\"tk-frame middle-frame\"]")
+    public List<WebElement> tileBody;
+
+    @FindBy(css = "div[data-qa=\"base-inventory-type\"]")
+    public List<WebElement> inventoryType;
+
+    @FindBy(css = "div[class=\"make-model\"]")
+    public List<WebElement> yearMakeModel;
+
+    @FindBy(css = "div[class=\"trim-mileage\"]")
+    public List<WebElement> trimMileage;
+
+    @FindBy(css = "div[class=\"tk-pane middle-frame-pane\"]  div[class=\"price \"]")
+    public List<WebElement> price;
+
+    @FindBy(css = ".monthly-payment")
+    public List<WebElement> monthlyPaymentInfo;
+
+    @FindBy(css = ".down-payment")
+    public List<WebElement> downPaymentInfo;
+
+    @FindBy(css = ".base-delivery-chip")
+    public List<WebElement> deliveryChip;
+
+    @FindBy(css = ".close svg")
+    public WebElement crossClose;
 
 
 }
