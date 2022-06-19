@@ -56,8 +56,6 @@ public class CarvanaCarsPage {
     @FindBy(css = ".base-delivery-chip")
     public List<WebElement> deliveryChip;
 
-    @FindBy(css = ".close svg")
-    public WebElement crossClose;
 
 
 }
